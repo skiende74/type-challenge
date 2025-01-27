@@ -13,3 +13,6 @@
 
 ## 유형별 문제 목록
 [유형별 문제 목록](https://github.com/skiende74/type-challenge/blob/main/%EB%AC%B8%EC%A0%9C%EC%9C%A0%ED%98%95%20%EB%AA%A9%EC%B0%A8.md)
+
+## 읽을거리
+[읽을 거리](https://github.com/skiende74/type-challenge/blob/main/%EC%9D%BD%EC%9D%84%20%EA%B1%B0%EB%A6%AC.md)
