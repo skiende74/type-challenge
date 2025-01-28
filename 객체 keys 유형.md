@@ -47,6 +47,8 @@ type MyReadonly2<T, K extends keyof T=keyof T> = {readonly[k in keyof T as k ext
 
 #### 풀이
 배열도 순회해줘야하고, 튜플로도바꿔주는 점, object에 함수도 포함되는데 여기선 무시해야하는점 때문에 조금 성가시다.
+조건판다을 잘 해주고, 배열을 mappedType으로 순회하여 간결하게함으로써 해결할 수 있다.
+
 우선 T가 배열인지 판단하고 배열이면, mappedType으로 배열순회를 해주고, readonly를 붙여준다. 
 **배열을 mappedType순회시 readonly를 붙이면 튜플로 변한다**
 그다음 T가 Function이라면 그냥 T를 리턴,
