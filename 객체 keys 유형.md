@@ -47,7 +47,9 @@ type MyReadonly2<T, K extends keyof T=keyof T> = {readonly[k in keyof T as k ext
 
 #### 풀이
 배열도 순회해줘야하고, 튜플로도바꿔주는 점, object에 함수도 포함되는데 여기선 무시해야하는점 때문에 조금 성가시다.
-조건판다을 잘 해주고, 배열을 mappedType으로 순회하여 간결하게함으로써 해결할 수 있다.
+조건판단을 잘 해주고, 배열을 mappedType으로 순회하여 간결하게함으로써 해결할 수 있다.
+(하지만 잘 생각해보면 배열도 동일한구문으로 순회하므로 따로 조건문을 걸어줄필요가없다.)
+즉, readonly를 배열에다 사용하면 튜플이 된다는 것을 알면 된다.
 
 우선 T가 배열인지 판단하고 배열이면, mappedType으로 배열순회를 해주고, readonly를 붙여준다. 
 **배열을 mappedType순회시 readonly를 붙이면 튜플로 변한다**
@@ -56,10 +58,9 @@ T가 object라면 {readonly[k in keyof T]: DeepReadonly<T>} 재귀해준다.
 그리고 else일때 T리턴.
 
 으로 해결할 수 있다.
+하지만 잘 생가갷보면 배열도 동일한 구문으로 순회하고싶기때문에, 배열인지여부는 판단할 필요가 없다.
+따라서 함수인경우만 검사해주면된다.
 ```ts
 type DeepReadonly<T> = 
-T extends any[] ? { readonly [k in keyof T]: DeepReadonly<T[k]> }
-: T extends Function ? T
-: T extends object ? { readonly [k in keyof T]: DeepReadonly<T[k]> }
-: T;
+T extends Function ? T: { readonly [k in keyof T]: DeepReadonly<T[k]> };
 ```
