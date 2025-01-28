@@ -6,7 +6,7 @@ Easy 유형 13문제와 Medium 102문제를 풀고 있습니다.
 
 현재 Medium 50문제정도까지를 나만의 풀이로 정리&기록 하였습니다.
 
-## 📖 유형별 풀이 정리
+## 📖 유형별 풀이 기록
 
  - [배열 유형 풀이](https://github.com/skiende74/type-challenge/blob/main/%EB%B0%B0%EC%97%B4%20%EC%9C%A0%ED%98%95.md)
  - [문자열 유형 풀이](https://github.com/skiende74/type-challenge/blob/main/%EB%AC%B8%EC%9E%90%EC%97%B4%20%EC%9C%A0%ED%98%95.md)
