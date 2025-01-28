@@ -39,3 +39,25 @@ type MyReadonly2<T, K extends keyof T=keyof T> = {readonly[k in keyof T as k ext
 
 독특한 점은 &로 객체를 묶을 경우 기본적으로 동일한 객체로 인식하지 않는다.
 하지만 이 문제의 경우 테스트케이스에 ALike<>제네릭으로 조건이 완화되어있으므로 Simplify를 해줄 필요가 없다.
+
+## 9 - Deep Readonly
+#### 문제
+객체의 Deep Readonly를 구현하여야한다.
+다만, 배열의 경우에도 readonly로 바꿔줘야하고(튜플로), 배열내에 있는 객체도 당연히 순회하여야한다.
+
+#### 풀이
+배열도 순회해줘야하고, 튜플로도바꿔주는 점, object에 함수도 포함되는데 여기선 무시해야하는점 때문에 조금 성가시다.
+우선 T가 배열인지 판단하고 배열이면, mappedType으로 배열순회를 해주고, readonly를 붙여준다. 
+**배열을 mappedType순회시 readonly를 붙이면 튜플로 변한다**
+그다음 T가 Function이라면 그냥 T를 리턴,
+T가 object라면 {readonly[k in keyof T]: DeepReadonly<T>} 재귀해준다.
+그리고 else일때 T리턴.
+
+으로 해결할 수 있다.
+```ts
+type DeepReadonly<T> = 
+T extends any[] ? { readonly [k in keyof T]: DeepReadonly<T[k]> }
+: T extends Function ? T
+: T extends object ? { readonly [k in keyof T]: DeepReadonly<T[k]> }
+: T;
+```
