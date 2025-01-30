@@ -81,3 +81,23 @@ AppendToObject<T, K, V> 라 한다면,
 Simplify<T> = {[k in keyof T]:T[k]}
 AppendToObject<T, K extends string, V> = Simplify<T & {[k in K]: V}>
 ```
+
+## 1130 - ReplaceKeys
+#### 문제
+객체에서 K,V(obj)를 넣은내용으로 교체해주는 제네릭 작성하기.
+객체는 객체의 유니온일수도있다.
+독특한 점은 K에서 골랐으나, V에는 없을경우 never로 해주기.
+
+#### 풀이
+[k in keyof T]: 해서 k extends K와 k extends keyof V를 활용해서 해결한다.
+
+k extends K 일 경우,
+ k extends keyof V까지 검사해주고 V[k], 
+ false면 never
+false면 T[k] 사용한다.
+
+```ts
+type ReplaceKeys<T, K, V> = 
+{ [k in keyof T]: k extends K? k extends keyof V?V[k]:never:T[k]
+}
+```
