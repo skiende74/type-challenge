@@ -64,3 +64,20 @@ T가 object라면 {readonly[k in keyof T]: DeepReadonly<T>} 재귀해준다.
 type DeepReadonly<T> = 
 T extends Function ? T: { readonly [k in keyof T]: DeepReadonly<T[k]> };
 ```
+
+## 527 - Append to object
+#### 문제
+객체에 하나 더 append하는 제네릭구현
+```ts
+AppendToObject<test3, 'moon', false | undefined> // moon:false|undefined가 추가되어야함
+```
+
+#### 풀이
+AppendToObject<T, K, V> 라 한다면,
+그냥 T에다가 T & { [k in K]:V} 하고 &병합을위해 Simplify해주면된다.
+단일값 K로 객체를 만들고싶은 경우도,  {K:V}나 {[K]:V}로는 안되고 **그냥 {[k in K]:V}** 하면 된다.
+
+```ts
+Simplify<T> = {[k in keyof T]:T[k]}
+AppendToObject<T, K extends string, V> = Simplify<T & {[k in K]: V}>
+```
