@@ -101,3 +101,31 @@ type ReplaceKeys<T, K, V> =
 { [k in keyof T]: k extends K? k extends keyof V?V[k]:never:T[k]
 }
 ```
+
+## 1367 - Remove Index Signature
+#### 문제
+
+#### 풀이
+인덱스시그니쳐엔 string, number, symbol을 쓸수있으므로 이 값들이 k를 extends할 경우 무시하면된다.
+```ts
+type RemoveIndexSignature<T> = {
+  [K in keyof T as
+    string extends K ? never
+      : number extends K ? never
+        : symbol extends K ? never 
+          : K
+  ]: T[K]
+}
+type a = RemoveIndexSignature<Bar>
+```
+
+PropertyKey와 제네릭 유니온 분배법칙을활용하여 아래와같이 좀더짧게줄일수도있지만
+다소 가독성이 떨어진다.
+```ts
+type RemoveIndexSignature<T, P=PropertyKey> = {
+  [k in keyof T as P extends k? never: k extends P? k:never]: T[k]
+}
+P는 string|number|symbol이고 분배된다.
+두번째 extends인 k extends P가 좀 성가신데,
+각 분배상황내이기때문에 P는 이미 string인 상황이디(string으로예를들면)
+따라서 저 조건문이없다면 k는 number인데 P가 string일때 항상 k가 출력되게되므로, 이를방지하기위함이다.
