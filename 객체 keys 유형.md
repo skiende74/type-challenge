@@ -104,7 +104,12 @@ type ReplaceKeys<T, K, V> =
 
 ## 1367 - Remove Index Signature
 #### 문제
+type Foo = {
+  [key: string]: any
+  foo(): void
+}
 
+type A = RemoveIndexSignature<Foo> // expected { foo(): void }
 #### 풀이
 인덱스시그니쳐엔 string, number, symbol을 쓸수있으므로 이 값들이 k를 extends할 경우 무시하면된다.
 ```ts
@@ -129,3 +134,14 @@ P는 string|number|symbol이고 분배된다.
 두번째 extends인 k extends P가 좀 성가신데,
 각 분배상황내이기때문에 P는 이미 string인 상황이디(string으로예를들면)
 따라서 저 조건문이없다면 k는 number인데 P가 string일때 항상 k가 출력되게되므로, 이를방지하기위함이다.
+
+## 2793 - Mutable
+#### 문제
+객체에서 readonly를 제거하여 mutable로 바꾸는 제네릭 작성
+#### 풀이
+-readonly를 사용할줄 아는지 묻는 매우단순한문제
+```ts
+type Mutable<T extends object> = {
+  -readonly[k in keyof T]:T[k]
+}
+```
