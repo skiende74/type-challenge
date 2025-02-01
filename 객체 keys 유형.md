@@ -104,10 +104,12 @@ type ReplaceKeys<T, K, V> =
 
 ## 1367 - Remove Index Signature
 #### 문제
+```ts
 type Foo = {
   [key: string]: any
   foo(): void
 }
+```
 
 type A = RemoveIndexSignature<Foo> // expected { foo(): void }
 #### 풀이
@@ -130,6 +132,8 @@ PropertyKey와 제네릭 유니온 분배법칙을활용하여 아래와같이 �
 type RemoveIndexSignature<T, P=PropertyKey> = {
   [k in keyof T as P extends k? never: k extends P? k:never]: T[k]
 }
+```
+
 P는 string|number|symbol이고 분배된다.
 두번째 extends인 k extends P가 좀 성가신데,
 각 분배상황내이기때문에 P는 이미 string인 상황이디(string으로예를들면)
