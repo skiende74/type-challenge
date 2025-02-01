@@ -109,9 +109,9 @@ type Foo = {
   [key: string]: any
   foo(): void
 }
+type A = RemoveIndexSignature<Foo> // expected { foo(): void }
 ```
 
-type A = RemoveIndexSignature<Foo> // expected { foo(): void }
 #### 풀이
 인덱스시그니쳐엔 string, number, symbol을 쓸수있으므로 이 값들이 k를 extends할 경우 무시하면된다.
 ```ts
