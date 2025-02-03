@@ -149,3 +149,14 @@ type Mutable<T extends object> = {
   -readonly[k in keyof T]:T[k]
 }
 ```
+
+## 28333 - Public Type
+#### 문제
+객체에서 _로 시작하는 키만을 전부 제거하기
+#### 풀이
+Mapped Type에서 키 리매핑 via as를 사용하여 _로 시작할 때 never로 처리해버리면된다.
+```ts
+type PublicType<T extends object> = {
+  [k in keyof T as k extends `_${string}`?never:k]:T[k]
+}
+```
