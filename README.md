@@ -2,7 +2,7 @@
 타입스크립트 [type-challenges](https://github.com/type-challenges/type-challenges/blob/main/README.ko.md)를 풀고 스스로의 답을 정리합니다. 
 스스로의 답은 문제유형들을 한 페이지에 모아 정리하고있습니다. 
 
-Easy 유형 13문제와 Medium 102문제를 풀고 있습니다.
+Easy 유형 총 13문제와 Medium 총 102문제를 풀고 있습니다.
 
 현재 Medium 70문제를 나만의 풀이로 정리&기록 진행한 상태입니다.
 
